@@ -74,9 +74,14 @@
 /* Constants for the ComTest demo application tasks. */
 #define mainCOM_TEST_BAUD_RATE	( ( unsigned long ) 115200 )
 
-#define LESS_THAN_2    0 
-#define MORE_THAN_2    1
-#define MORE_THAN_4    2
+#define LESS_THAN_2       0 
+#define MORE_THAN_2       1
+#define MORE_THAN_4       2
+#define TASK100_PER       100
+#define TASK400_PER       400
+#define BTN_PER           50
+#define STATE_ONE         40
+#define STATE_TWO         80
 
 
 uint8_t  u8_gl_btn_state   = LESS_THAN_2;
@@ -122,7 +127,7 @@ void LED_TASK100(void *pvParameters)
 		 {
 			 //do nothing
 		 }
-		 vTaskDelay(100); 
+		 vTaskDelay(TASK100_PER); 
 	 }	
 }
 
@@ -139,7 +144,7 @@ void LED_TASK400(void *pvParameters)
 		 {
 			 //do nothing
 		 }
-		  vTaskDelay(400);
+		  vTaskDelay(TASK400_PER);
 	 }	
 }
 
@@ -147,7 +152,7 @@ void LED_TASK400(void *pvParameters)
 
 
 // this global stores the total time pressed (maximum 12.8 seconds)
-uint8_t  u8_gl_timer_count = 0 ;
+uint8_t  u8_gl_timer_count = pdFALSE ;
 
 
 void BTN_TASK(void *pvParameters)
@@ -163,12 +168,12 @@ void BTN_TASK(void *pvParameters)
 			 
        vTaskSuspend(LED_Task400_Handler);	
        vTaskSuspend(LED_Task100_Handler);			 			 
-			 if(u8_gl_timer_count < 40)
+			 if(u8_gl_timer_count < STATE_ONE)
 			 {
 				 u8_gl_btn_state = LESS_THAN_2;
 				 vTaskResume(LED_OFF_Task_Handler);
 			 }
-			 else if (u8_gl_timer_count < 80 && u8_gl_timer_count > 40)
+			 else if (u8_gl_timer_count < STATE_TWO && u8_gl_timer_count > STATE_ONE)
 			 {
 				 u8_gl_btn_state = MORE_THAN_2;
 				 vTaskResume(LED_Task400_Handler);
@@ -179,14 +184,14 @@ void BTN_TASK(void *pvParameters)
 				 vTaskResume(LED_Task100_Handler);
 			 }
 			 
-			 u8_gl_timer_count = 0;
+			 u8_gl_timer_count = pdFALSE;
 		 }
 		 else
 		 {
 			 // do nothing
 		 }
 	 	 
-		 vTaskDelay(50);
+		 vTaskDelay(BTN_PER);
 	 }	
 }
 

@@ -74,7 +74,9 @@
 /* Constants for the ComTest demo application tasks. */
 #define mainCOM_TEST_BAUD_RATE	( ( unsigned long ) 115200 )
 
-
+#define TASK1_PER          100
+#define TASK2_PER          500
+#define TASK3_PER          1000
 /*
  * Configure the processor for use with the Keil demo board.  This is very
  * minimal as most of the setup is managed by the settings in the project
@@ -91,7 +93,7 @@ void LED_TASK1(void *pvParameters)
    for(;;)
 	 {
 	 	 GPIO_toggle(PORT_0,PIN1);
-		 vTaskDelay(100);
+		 vTaskDelay(TASK1_PER);
 	 }	
 }
 
@@ -101,7 +103,7 @@ void LED_TASK2(void *pvParameters)
    for(;;)
 	 {
 	 	 GPIO_toggle(PORT_0,PIN2);
-		 vTaskDelay(500);
+		 vTaskDelay(TASK2_PER);
 	 }	
 }
 
@@ -112,7 +114,7 @@ void LED_TASK3(void *pvParameters)
    for(;;)
 	 {
 	 	 GPIO_toggle(PORT_0,PIN3);
-		 vTaskDelay(1000);
+		 vTaskDelay(TASK3_PER);
 	 }	
 }
 

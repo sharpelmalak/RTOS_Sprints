@@ -75,6 +75,8 @@
 #define mainCOM_TEST_BAUD_RATE	( ( unsigned long ) 115200 )
 
 
+
+#define TASK_PER          1000
 /*
  * Configure the processor for use with the Keil demo board.  This is very
  * minimal as most of the setup is managed by the settings in the project
@@ -91,7 +93,7 @@ void LED_TASK(void *pvParameters)
 	 {
 		 //simply toggle every 1000 milli second
 	 	 GPIO_toggle(PORT_0,PIN1);
-		 vTaskDelay(1000);
+		 vTaskDelay(TASK_PER);
 	 }	
 }
 
