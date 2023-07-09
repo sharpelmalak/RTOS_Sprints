@@ -77,6 +77,7 @@
 #define mainCOM_TEST_BAUD_RATE	( ( unsigned long ) 115200 )
 
 #define BTN_BIT_0       (1<<0)
+#define COMMON_PER      50
 
 
 
@@ -115,7 +116,7 @@ void LED_toggle_TASK(void *pvParameters)
 		 {
 			 // do nothing
 		 }
-		   vTaskDelay(50);
+		   vTaskDelay(COMMON_PER);
 		 
 	 }	
 }
@@ -153,7 +154,7 @@ void BTN_TASK(void *pvParameters)
 			 // do nothing
 		 }
 	 	 
-		 vTaskDelay(50);
+		 vTaskDelay(COMMON_PER);
 	 }	
 }
 

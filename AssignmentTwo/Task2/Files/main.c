@@ -80,11 +80,13 @@
 
 /*Macros for application*/
 
-
+#define  END_MESSAGE_SIZE        19
 #define  MESSAGE_SIZE            22
 #define  MESSAGES_PER_CYCLE      10
 #define  TASK_2_CPU_LOAD         100000
 #define  TASK_1_HANDLER          5000
+#define  TASK_1_PER              100
+#define  TASK_2_PER              500
 
 
 /*
@@ -119,7 +121,7 @@ void     task2_500_ms(void* pvParameters)
 				}
 			}
 			
-			vSerialPutString((const signed char*)"-----endtask2-----\n",19);
+			vSerialPutString((const signed char*)"-----endtask2-----\n",END_MESSAGE_SIZE);
 			xSemaphoreGive(UART_Semaphore);
 		}
 		else
@@ -127,7 +129,7 @@ void     task2_500_ms(void* pvParameters)
 			//do nothing
 		}
 		
-		vTaskDelay(500);
+		vTaskDelay(TASK_2_PER);
 	}
 	
 }
@@ -149,7 +151,7 @@ void task1_100_ms(void* pvParameters)
 					i32_gl_counter++;
 				}
 			}
-			vSerialPutString((const signed char*)"-----endtask1-----\n",19);
+			vSerialPutString((const signed char*)"-----endtask1-----\n",END_MESSAGE_SIZE);
 			xSemaphoreGive(UART_Semaphore);
 		}
 		else
@@ -157,7 +159,7 @@ void task1_100_ms(void* pvParameters)
 			//do nothing
 		}
 		
-		vTaskDelay(100);
+		vTaskDelay(TASK_1_PER);
 	}
 	
 }

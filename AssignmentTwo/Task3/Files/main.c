@@ -81,6 +81,11 @@
 /*Macros for application*/
 
 #define MESSAGE_SIZE      26
+#define QUEUE_LENGTH      10
+#define COMM_PER          30
+#define UART_PER          100
+#define CONSUMER_PER      20
+
 
 
 /*
@@ -138,7 +143,7 @@ void     task1_btn1(void* pvParameters)
 			//do nothing
 		}
 
-		vTaskDelay(30);
+		vTaskDelay(COMM_PER);
 	}
 	
 }
@@ -179,7 +184,7 @@ void     task2_btn2(void* pvParameters)
 			//do nothing
 		}
 
-		vTaskDelay(30);
+		vTaskDelay(COMM_PER);
 	}
 	
 	
@@ -200,7 +205,7 @@ void task3_100_ms(void* pvParameters)
 		{
 			//NOTHING
 		}
-		vTaskDelay(100);
+		vTaskDelay(UART_PER);
 	}
 	
 }
@@ -221,7 +226,7 @@ void task4_consumer(void* pvParameters)
 			{
 				//do nothing
 			}
-		vTaskDelay(20);
+		vTaskDelay(CONSUMER_PER);
 	}
 	
 }
@@ -242,7 +247,7 @@ int main( void )
 {
 	
 	prvSetupHardware();
-	xAppQueue = xQueueCreate( 10, sizeof( signed char * ));
+	xAppQueue = xQueueCreate( QUEUE_LENGTH, sizeof( signed char * ));
 	xTaskCreate( task1_btn1, /* Pointer to the function that implements the task. */
 							 "task1_btn1",/* Text name for the task. This is to facilitate debugging only. */
 							 configMINIMAL_STACK_SIZE, /* Stack depth - small microcontrollers will use much less stack than this. */
